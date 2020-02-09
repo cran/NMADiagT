@@ -1,0 +1,65 @@
+data {
+      for (i in 1:N){
+           zero[i] <- 0
+      }
+}
+
+model {
+      C <- 10000
+      preci[1:(2*K+1),1:(2*K+1)] ~ dwish(R[1:(2*K+1),1:(2*K+1)], df)
+      eta ~ dnorm(mu_eta,preci_eta)
+      prev <-phi(eta)
+      for (j in 1:K){
+          alpha[j] ~ dnorm(mu_alpha,preci_alpha)
+          beta[j] ~ dnorm(mu_beta,preci_beta)
+          post.Se[j] <- phi(alpha[j])
+          post.Sp[j] <- phi(beta[j])
+          ppv[j] <- post.Se[j]*prev/(post.Se[j]*prev+(1-post.Sp[j])*(1-prev))
+          npv[j] <- post.Sp[j]*(1-prev)/(post.Sp[j]*(1-prev)+(1-post.Se[j])*prev)
+          LRpos[j] <- post.Se[j]/(1-post.Sp[j])
+          LRneg[j] <- (1-post.Se[j])/post.Sp[j]
+       }
+
+      for (j in 1:(2*K+1)){
+          mu[j] <- 0
+      }
+      for (i in 1:nstu){
+          ran[i,1:(2*K+1)] ~ dmnorm(mu[1:(2*K+1)],preci[1:(2*K+1),1:(2*K+1)])
+      }
+      for (i in 1:N){
+          for (j in 2:(K+1)){
+               Se[i,j-1] <- phi(alpha[j-1]+ran[sid[i],2*(j-1)])
+               Sp[i,j-1] <- phi(beta[j-1]+ran[sid[i],2*(j-1)+1])
+               h1k[i,j-1] <- delta[i,j]* y[i,j]*log(Se[i,j-1]) + delta[i,j]*(1-y[i,j])*log(1-Se[i,j-1])
+               h2k[i,j-1] <- delta[i,j]*(1-y[i,j])*log(Sp[i,j-1]) + delta[i,j]*y[i,j]*log(1-Sp[i,j-1])
+
+          }
+          pi[i] <- phi(eta+ran[sid[i],1])
+          logpih1[i] <- log(pi[i])+sum(h1k[i,])
+          logpih2[i] <- log(1-pi[i])+sum(h2k[i,])
+          logL[i] <- n[i]*(delta[i,1]*y[i,1]*logpih1[i]+delta[i,1]*(1-y[i,1])*logpih2[i] + (1-delta[i,1])*log (exp(logpih1[i])+exp(logpih2[i])))
+          logLC[i] <- -logL[i]+C
+          zero[i] ~ dpois(logLC[i])
+     }
+
+
+       gamma0 ~ dnorm(mu_gamma,preci_gamma)
+       for (i in 1:nstu){
+          for (k in 1:K){
+                Se.stud[i,k] <- phi(alpha[k]+ran[i,2*k])
+                Sp.stud[i,k] <- phi(beta[k]+ran[i,2*k+1])
+                      ### Model of Missingness ###
+        	      logit(p[i,k]) <- gamma0 + gamma1[k]*logit(Se.stud[i,k])+gamma2[k]*logit(Sp.stud[i,k])
+                M[i,k] ~ dbern(p[i,k])
+                }
+
+        }
+
+
+
+
+
+}
+
+
+
