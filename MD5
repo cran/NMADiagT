@@ -1,4 +1,4 @@
-c9f04b6327db590e33e15cbc0d71c481 *DESCRIPTION
+f049e127f5e889508943e3f4f34685c3 *DESCRIPTION
 6f84000a7ed4496c86c3355f9a4306e1 *NAMESPACE
 ff8e74989d572efa3535b075718a1a0b *R/cb.R
 4fdd9296876a71173db87cd48409f216 *R/cb_h.R
@@ -13,13 +13,13 @@ e0851a36af72bf4dbe1e1cd69f666196 *R/forestplot.R
 8998913a495b0756215577c67598b831 *R/hierarchical.plot.R
 695a83bd3042bcc7ff2c77feaf54c3ee *R/hsroc.plot.R
 d5ac457c8de4a1dd47eb4cd8e24fe8fa *R/indicator.R
-76ccb3df70ac1c81b9e7c088e4f0968a *R/nmadt.hierarchical.MNAR.R
-1b087d40be018b3b1decda346b8e242f *R/nmadt.hierarchical.R
-ab98fa4ab84e02dc6f146589b38481c7 *R/nmadt.hsroc.MNAR.R
+e5498f24740cb766e3c83ec4635c264b *R/nmadt.hierarchical.MNAR.R
+4218e3d1f4af0d4cdc80a4a875d50730 *R/nmadt.hierarchical.R
+d7788e6e5b9ad78752700a12cf39364f *R/nmadt.hsroc.MNAR.R
 61206777bcc4f08df853152f1c230c30 *R/nmadt.hsroc.R
 91b2f36375b71a06080f82cd120c9879 *R/paralist.R
 db9f92ad5ef7f5f3306553fff3d026c5 *R/sroc.R
-160f1f2c3b7e06813385509acb1aed92 *build/partial.rdb
+4f7317e8711f61d89ea7fdc8c3fcd73a *build/partial.rdb
 c8863d523309b29a93beaec666a082e1 *inst/JAGSmodels/model3MNAR.txt
 6c4a9a536190428d3ad23d1630cfbf3f *inst/JAGSmodels/model_h1.txt
 b47c8db502d9796562eaca9706e0671a *inst/JAGSmodels/model_h_MNAR.txt
@@ -28,8 +28,8 @@ fcf3cceef28823e4e619f8f0b25ec456 *inst/REFERENCES.bib
 72b61575b496976234b7e4128e42f192 *inst/extdata/kangdata.csv
 d7c7e5c9aae452ec140563d4758fc387 *man/hierarchical.plot.Rd
 674b892883e9ba3ef9cd36124df8d3a9 *man/hsroc.plot.Rd
-44f3e90ecb97f57374c444be2f52c3ae *man/nmadt.hierarchical.MNAR.Rd
-0cb92f4ee56980061cb6330aea003794 *man/nmadt.hierarchical.Rd
+8a54b11e03273cf723377a6a6485e4a8 *man/nmadt.hierarchical.MNAR.Rd
+236f8d65f1e76b000f2a17d4dde3d1e2 *man/nmadt.hierarchical.Rd
 074e8ff2a9bfcc5544eaabc09b2c93ea *man/nmadt.hsroc.MNAR.Rd
 2a1ae45995f2fe6813551fb499665100 *man/nmadt.hsroc.Rd
 e7156c8143ee1d8602d5eead1dae8e1b *tests/testthat.R

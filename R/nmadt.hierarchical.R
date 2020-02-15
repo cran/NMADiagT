@@ -7,7 +7,6 @@
 #' @param directory a string specifying the designated directory to save trace plots or potential scale reduction factors calculated in the function. The default is NULL.
 #' @param diag a number indicating the value of diagonal entries of the scale matrix R of the precision matrix \eqn{\Sigma}. The default is 5.
 #' @param off_diag a number indicating the value of off-diagonal entries of the scale matrix R of the precision matrix \eqn{\Sigma}. The default is 0.05.
-#' @param df a positive integer indicating the degree of freedom of the Wishart distribution for the precision matrix \eqn{\Sigma}. The default is \eqn{2\times K+1}.
 #' @param digits a positive integer he number of digits to the right of the decimal point to keep for the results; digits=4 by default.
 #' @param mu_alpha a number indicating the mean of the normal distribution that the prior of the fixed effect for sensitivity follows. The default is 0.
 #' @param mu_beta a number indicating the mean of the normal distribution that the prior of the fixed effect for specificity follows. The default is 0.
@@ -43,7 +42,7 @@
 #' \insertRef{Ma2018}{NMADiagT}
 #' @export
 nmadt.hierarchical=function(nstu, K, data, testname, directory=NULL,
-                            diag = 5, off_diag = 0.05, df = 2*K+1, digits = 4, mu_alpha=0,
+                            diag = 5, off_diag = 0.05, digits = 4, mu_alpha=0,
                             mu_beta=0, mu_eta=-0, preci_alpha=0.1, preci_beta=0.1, preci_eta=0.1,
                             n.adapt = 5000, n.iter = 50000, n.burnin = floor(n.iter/2),
                             n.chains = 3, n.thin = max(1, floor((n.iter - n.burnin)/50000)),
@@ -67,6 +66,7 @@ nmadt.hierarchical=function(nstu, K, data, testname, directory=NULL,
   diag(R) <- diag
   R <-solve(R)
   N <- nrow(data)
+  df <- 2*K+1
   delta<-data[c(2:(K+2))]
   param = c("Se", "Sp","prev","ppv","npv","LRpos","LRneg")
 

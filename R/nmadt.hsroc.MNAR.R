@@ -42,9 +42,9 @@
 #' @export
 nmadt.hsroc.MNAR=function(nstu, K, data, testname, directory = NULL, eta=0, xi_preci=1.25,digits = 4,
                           gamma1, gamma0, mu_gamma=0, preci_gamma=1,
-                     n.adapt = 5000, n.iter = 50000, n.burnin = floor(n.iter/2),
-                     n.chains = 3, n.thin = max(1, floor((n.iter - n.burnin)/1e+05)),
-                     conv.diag = FALSE, trace = NULL, dic = FALSE, mcmc.samples = FALSE )
+                          n.adapt = 5000, n.iter = 50000, n.burnin = floor(n.iter/2),
+                          n.chains = 3, n.thin = max(1, floor((n.iter - n.burnin)/1e+05)),
+                          conv.diag = FALSE, trace = NULL, dic = FALSE, mcmc.samples = FALSE )
 {
   #options(warn = 1)
   if (missing(data))

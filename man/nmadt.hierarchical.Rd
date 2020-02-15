@@ -5,8 +5,8 @@
 \title{Network Meta-Analysis Using the Hierarchical Model}
 \usage{
 nmadt.hierarchical(nstu, K, data, testname, directory = NULL, diag = 5,
-  off_diag = 0.05, df = 2 * K + 1, digits = 4, mu_alpha = 0,
-  mu_beta = 0, mu_eta = -0, preci_alpha = 0.1, preci_beta = 0.1,
+  off_diag = 0.05, digits = 4, mu_alpha = 0, mu_beta = 0,
+  mu_eta = -0, preci_alpha = 0.1, preci_beta = 0.1,
   preci_eta = 0.1, n.adapt = 5000, n.iter = 50000,
   n.burnin = floor(n.iter/2), n.chains = 3, n.thin = max(1,
   floor((n.iter - n.burnin)/50000)), conv.diag = FALSE, trace = NULL,
@@ -26,8 +26,6 @@ nmadt.hierarchical(nstu, K, data, testname, directory = NULL, diag = 5,
 \item{diag}{a number indicating the value of diagonal entries of the scale matrix R of the precision matrix \eqn{\Sigma}. The default is 5.}
 
 \item{off_diag}{a number indicating the value of off-diagonal entries of the scale matrix R of the precision matrix \eqn{\Sigma}. The default is 0.05.}
-
-\item{df}{a positive integer indicating the degree of freedom of the Wishart distribution for the precision matrix \eqn{\Sigma}. The default is \eqn{2\times K+1}.}
 
 \item{digits}{a positive integer he number of digits to the right of the decimal point to keep for the results; digits=4 by default.}
 
