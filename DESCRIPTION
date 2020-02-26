@@ -1,19 +1,15 @@
 Package: NMADiagT
 Type: Package
 Title: Network Meta-Analysis of Multiple Diagnostic Tests
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(person("Boyang", "Lu", email = "lu000083@umn.edu",
                   role = c("aut", "cre")),
              person("Qinshu", "Lian", email = "lianx025@umn.edu",
                   role = c("aut")),
-             person("Xiaoye", "Ma", email = "xiaoye1043@gmail.com",
-                  role = c("aut")),
-             person("Yong", "Chen", email = "ychen123@mail.med.upenn.edu",
-                  role = c("aut")),
              person("James S.", "Hodges", email = "hodge003@umn.edu",
                   role = c("aut")),
-             person("Joseph G.", "Ibrahim", email = " jibrahim@email.unc.edu",
-                  role = c("aut")),  
+             person("Yong", "Chen", email = "ychen123@mail.med.upenn.edu",
+                  role = c("aut")), 
              person("Haitao", "Chu", email = "chux0051@umn.edu",
                   role = c("aut"))  
                   )
@@ -32,13 +28,11 @@ LazyData: true
 RoxygenNote: 6.1.1
 Suggests: testthat
 NeedsCompilation: no
-Packaged: 2020-02-14 21:01:21 UTC; boyanglu
+Packaged: 2020-02-25 17:07:07 UTC; boyanglu
 Author: Boyang Lu [aut, cre],
   Qinshu Lian [aut],
-  Xiaoye Ma [aut],
-  Yong Chen [aut],
   James S. Hodges [aut],
-  Joseph G. Ibrahim [aut],
+  Yong Chen [aut],
   Haitao Chu [aut]
 Repository: CRAN
-Date/Publication: 2020-02-15 18:50:02 UTC
+Date/Publication: 2020-02-26 07:00:02 UTC

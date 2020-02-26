@@ -42,8 +42,8 @@
 #' @export
 nmadt.hsroc.MNAR=function(nstu, K, data, testname, directory = NULL, eta=0, xi_preci=1.25,digits = 4,
                           gamma1, gamma0, mu_gamma=0, preci_gamma=1,
-                          n.adapt = 5000, n.iter = 50000, n.burnin = floor(n.iter/2),
-                          n.chains = 3, n.thin = max(1, floor((n.iter - n.burnin)/1e+05)),
+                          n.adapt = 10000, n.iter = 50000, n.chains = 3,
+                          n.burnin = floor(n.iter/2), n.thin = max(1, floor((n.iter - n.burnin)/1e+05)),
                           conv.diag = FALSE, trace = NULL, dic = FALSE, mcmc.samples = FALSE )
 {
   #options(warn = 1)
@@ -70,11 +70,12 @@ nmadt.hsroc.MNAR=function(nstu, K, data, testname, directory = NULL, eta=0, xi_p
   delta<-data[c(2:(K+2))]
   param = c("Se", "Sp","prev","ppv","npv","LRpos","LRneg")
 
+
   if(!isTRUE(all(delta == floor(delta)))|any(delta<0)|any(delta>1)|any(is.na(delta))){
     stop("missing indicator not in the right format(0 for missing data and 1 for nonmissing data)" )
   }
   y<-data[c((K+3):(2*K+3))]
-
+  sid<-data[,1]
   n<-data[,ncol(data)]
 
   if(any(is.na(delta))){
@@ -96,8 +97,9 @@ nmadt.hsroc.MNAR=function(nstu, K, data, testname, directory = NULL, eta=0, xi_p
     if (!any(is.element(trace, param)))
       stop("at least one effect size in argument trace is not available.")
   }
+
   D<-delta[c(2:(K+1))]
-  sid <- c(rep(c(1:nstu),each=4))
+
   indicator=function(K,nstu,dat){
     newdat<-dat[c(1:(K+2))]
     dat1<-unique(newdat)
@@ -113,7 +115,7 @@ nmadt.hsroc.MNAR=function(nstu, K, data, testname, directory = NULL, eta=0, xi_p
     return(indicatorm)
   }
   M <- indicator(K,nstu,data)
-  monitor<-c("post.se","post.sp","beta","mu1","mu2","post.pi","loglik_dic","theta","alpha","Se","Sp","pi","stud.se","stud.sp",'ppv','npv','LRpos','LRneg')
+  monitor<-c("post.se","post.sp","beta","mu1","mu2","post.pi","loglik_dic","theta","pi","stud.se","stud.sp",'ppv','npv','LRpos','LRneg','gamma0')
   data.jags <- list('n' = n, 'delta'=delta,'N' = N,'y'=y,'K'=K,'R1'=R1,'R2'=R2,'nstu'=nstu,'sid'=sid,'eta'=eta, 'xi_preci'=xi_preci, 'mu_gamma'=mu_gamma,
                     'preci_gamma'=preci_gamma, 'gamma1'=gamma1, 'gamma2'=gamma0, 'M'=M)
   rng.seeds <- sample(1e+06, n.chains)
@@ -260,6 +262,7 @@ nmadt.hsroc.MNAR=function(nstu, K, data, testname, directory = NULL, eta=0, xi_p
                            thin = n.thin)
     dev <- sum(dic.out$deviance)
     pen <- sum(dic.out$penalty)
+    if(is.nan(pen)) pen=0.0
     pen.dev <- dev + pen
     dic.stat <- rbind(dev, pen, pen.dev)
     rownames(dic.stat) <- c("D.bar", "pD", "DIC")

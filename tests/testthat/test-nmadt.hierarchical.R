@@ -5,6 +5,7 @@ test_that("nmadt.hierarchical is working and the results are reproducible", {
   header=TRUE, sep=",")
   kangdata<-kangdata[c(-4,-7)]
   kangdata<-kangdata[-(17:28),]
+  kangdata$sid <- c(rep(c(1:9),each=4))
   set.seed(9)
   kang.out.hierarchical <- nmadt.hierarchical(nstu=9, K=1, data=kangdata, testname=c("D-dimer"))
 
@@ -23,5 +24,5 @@ test_that("nmadt.hierarchical is working and the results are reproducible", {
   rownames(Se.quan) <- testname
   Se <- list(Mean_SD = noquote(Se.stat), Median_CI = noquote(Se.quan))
 
-  expect_equal(as.numeric(unlist(kang.out.hierarchical$Se)),as.numeric(unlist(Se)) + 0.06)
+  expect_equal(as.numeric(unlist(kang.out.hierarchical$Se)),as.numeric(unlist(Se))+0.06)
 })

@@ -6,7 +6,7 @@
 \usage{
 nmadt.hsroc(nstu, K, data, testname, directory = NULL, eta = 0,
   xi_preci = 1.25, digits = 4, n.adapt = 5000, n.iter = 50000,
-  n.burnin = floor(n.iter/2), n.chains = 3, n.thin = max(1,
+  n.chains = 3, n.burnin = floor(n.iter/2), n.thin = max(1,
   floor((n.iter - n.burnin)/1e+05)), conv.diag = FALSE, trace = NULL,
   dic = FALSE, mcmc.samples = FALSE)
 }
@@ -31,9 +31,9 @@ nmadt.hsroc(nstu, K, data, testname, directory = NULL, eta = 0,
 
 \item{n.iter}{a postive integer indicating the number of iterations in each MCMC chain. The default is 50,000.}
 
-\item{n.burnin}{a positive integer indicating the number of burn-in iterations at the beginning of each chain without saving any of the posterior samples. The default is \code{floor(n.iter/2)}.}
-
 \item{n.chains}{a postive interger indicating the number of MCMC chains. The default is 3.}
+
+\item{n.burnin}{a positive integer indicating the number of burn-in iterations at the beginning of each chain without saving any of the posterior samples. The default is \code{floor(n.iter/2)}.}
 
 \item{n.thin}{the thinning rate for MCMC chains, which is used to save memory and computation time when \code{n.iter} is large.
 For example, the algorithm saves only one sample in every nth iteration, where n is given by \code{n.thin}.}

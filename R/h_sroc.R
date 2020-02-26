@@ -17,9 +17,9 @@ h_sroc = function(K,samp,nstu,dat,testname, dirc){
     sp.range = matrix(c(range(stud.sp[,1])),ncol=K,nrow=2,byrow=F)
     pool.se = result[c("post.Se[1]"),3]
     pool.sp = result[c("post.Sp[1]"),3]
-    alpha.post = rbind(c(samp[[1]][,c("alpha[1]")]))
+    alpha.post = rbind(c(samp[[1]][,c("mu[2]")]))
     rownames(alpha.post) = c("alpha1")
-    beta.post = rbind(c(samp[[1]][,c("beta[1]")]))
+    beta.post = rbind(c(samp[[1]][,c("mu[3]")]))
     rownames(beta.post) = c("beta1")
 
     y_1l = vector()
@@ -49,9 +49,9 @@ h_sroc = function(K,samp,nstu,dat,testname, dirc){
     sp.range = matrix(c(range(stud.sp[,1]),range(stud.sp[,2])),ncol=K,nrow=2,byrow=F)
     pool.se = result[c("post.Se[1]","post.Se[2]"),3]
     pool.sp = result[c("post.Sp[1]","post.Sp[2]"),3]
-    alpha.post = rbind(c(samp[[1]][,c("alpha[1]")]),c(samp[[1]][,c("alpha[2]")]))
+    alpha.post = rbind(c(samp[[1]][,c("mu[2]")]),c(samp[[1]][,c("mu[4]")]))
     rownames(alpha.post) = c("alpha1","alpha2")
-    beta.post = rbind(c(samp[[1]][,c("beta[1]")]),c(samp[[1]][,c("beta[2]")]))
+    beta.post = rbind(c(samp[[1]][,c("mu[3]")]),c(samp[[1]][,c("mu[5]")]))
     rownames(beta.post) = c("beta1","beta2")
 
     y_1l = vector()
@@ -97,14 +97,14 @@ h_sroc = function(K,samp,nstu,dat,testname, dirc){
     sp.range = matrix(c(range(stud.sp[,1]),range(stud.sp[,2]),range(stud.sp[,3])),ncol=K,nrow=2,byrow=F)
     pool.se = result[c("post.Se[1]","post.Se[2]","post.Se[3]"),3]
     pool.sp = result[c("post.Sp[1]","post.Sp[2]","post.Sp[3]"),3]
-    alpha.post = rbind(c(samp[[1]][,c("alpha[1]")]),
-                      c(samp[[1]][,c("alpha[2]")]),
-                      c(samp[[1]][,c("alpha[3]")])
+    alpha.post = rbind(c(samp[[1]][,c("mu[2]")]),
+                      c(samp[[1]][,c("mu[4]")]),
+                      c(samp[[1]][,c("mu[6]")])
     )
     rownames(alpha.post) = c("alpha1","alpha2","alpha3")
-    beta.post = rbind(c(samp[[1]][,c("beta[1]")]),
-                     c(samp[[1]][,c("beta[2]")]),
-                     c(samp[[1]][,c("beta[3]")])
+    beta.post = rbind(c(samp[[1]][,c("mu[3]")]),
+                     c(samp[[1]][,c("mu[5]")]),
+                     c(samp[[1]][,c("mu[7]")])
     )
     rownames(beta.post) = c("beta1","beta2","beta3")
 
@@ -164,15 +164,15 @@ h_sroc = function(K,samp,nstu,dat,testname, dirc){
   }
   if(K==4){
     sp.range = matrix(c(range(stud.sp[,1]),range(stud.sp[,2]),range(stud.sp[,3]),range(stud.sp[,4])),ncol=K,nrow=2,byrow=F)
-    alpha.post = rbind(c(samp[[1]][,c("alpha[1]")]),
-                      c(samp[[1]][,c("alpha[2]")]),
-                      c(samp[[1]][,c("alpha[3]")]),
-                      c(samp[[1]][,c("alpha[4]")]))
+    alpha.post = rbind(c(samp[[1]][,c("mu[2]")]),
+                      c(samp[[1]][,c("mu[4]")]),
+                      c(samp[[1]][,c("mu[6]")]),
+                      c(samp[[1]][,c("mu[8]")]))
     rownames(alpha.post) = c("alpha1","alpha2","alpha3","alpha4")
-    beta.post = rbind(c(samp[[1]][,c("beta[1]")]),
-                     c(samp[[1]][,c("beta[2]")]),
-                     c(samp[[1]][,c("beta[3]")]),
-                     c(samp[[1]][,c("beta[4]")]))
+    beta.post = rbind(c(samp[[1]][,c("mu[3]")]),
+                     c(samp[[1]][,c("mu[5]")]),
+                     c(samp[[1]][,c("mu[7]")]),
+                     c(samp[[1]][,c("mu[9]")]))
     rownames(beta.post) = c("beta1","beta2","beta3","beta4")
 
     y_1l = vector()
@@ -248,17 +248,17 @@ h_sroc = function(K,samp,nstu,dat,testname, dirc){
   }
   if(K==5){
     sp.range = matrix(c(range(stud.sp[,1]),range(stud.sp[,2]),range(stud.sp[,3]),range(stud.sp[,4])),ncol=K,nrow=2,byrow=F)
-    alpha.post = rbind(c(samp[[1]][,c("alpha[1]")]),
-                      c(samp[[1]][,c("alpha[2]")]),
-                      c(samp[[1]][,c("alpha[3]")]),
-                      c(samp[[1]][,c("alpha[4]")]),
-                      c(samp[[1]][,c("alpha[5]")]))
+    alpha.post = rbind(c(samp[[1]][,c("mu[2]")]),
+                      c(samp[[1]][,c("mu[4]")]),
+                      c(samp[[1]][,c("mu[6]")]),
+                      c(samp[[1]][,c("mu[8]")]),
+                      c(samp[[1]][,c("mu[10]")]))
     rownames(alpha.post) = c("alpha1","alpha2","alpha3","alpha4","alpha5")
-    beta.post = rbind(c(samp[[1]][,c("beta[1]")]),
-                     c(samp[[1]][,c("beta[2]")]),
-                     c(samp[[1]][,c("beta[3]")]),
-                     c(samp[[1]][,c("beta[4]")]),
-                     c(samp[[1]][,c("beta[5]")]))
+    beta.post = rbind(c(samp[[1]][,c("mu[3]")]),
+                     c(samp[[1]][,c("mu[5]")]),
+                     c(samp[[1]][,c("mu[7]")]),
+                     c(samp[[1]][,c("mu[9]")]),
+                     c(samp[[1]][,c("mu[11]")]))
     rownames(beta.post) = c("beta1","beta2","beta3","beta4","beta5")
 
     y_1l = vector()

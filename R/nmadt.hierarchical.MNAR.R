@@ -49,9 +49,9 @@
 nmadt.hierarchical.MNAR=function(nstu, K, data, testname, directory=NULL,
                             diag = 5, off_diag = 0.05, digits = 4, mu_alpha=0,
                             mu_beta=0,mu_eta=-0, preci_alpha=0.1, preci_beta=0.1, preci_eta=0.1,
-                            gamma1,gamma0,mu_gamma=0,preci_gamma=1,
-                            n.adapt = 5000, n.iter = 50000, n.burnin = floor(n.iter/2),
-                            n.chains = 3, n.thin = max(1, floor((n.iter - n.burnin)/1e+05)),
+                            gamma1,gamma0, mu_gamma=0, preci_gamma=1,
+                            n.burnin = floor(n.iter/2), n.thin = max(1, floor((n.iter - n.burnin)/1e+05)),
+                            n.adapt = 5000, n.iter = 50000, n.chains = 3,
                             conv.diag = FALSE, trace = NULL, dic = FALSE, mcmc.samples = FALSE )
 {
   #options(warn = 1)
@@ -84,7 +84,7 @@ nmadt.hierarchical.MNAR=function(nstu, K, data, testname, directory=NULL,
     stop("missing indicator not in the right format(0 for missing data and 1 for nonmissing data)" )
   }
   y<-data[c((K+3):(2*K+3))]
-
+  sid<-data[,1]
   n<-data[,ncol(data)]
 
   if(any(is.na(delta))){
@@ -107,15 +107,15 @@ nmadt.hierarchical.MNAR=function(nstu, K, data, testname, directory=NULL,
       stop("at least one effect size in argument trace is not available.")
   }
 
-  sid <- c(rep(c(1:nstu),each=4))
-  indicator=function(K,nstu,dat){
-    newdat<-dat[c(1:(K+2))]
+
+  indicator=function(K1,n.stu,dat){
+    newdat<-dat[c(1:(K1+2))]
     dat1<-unique(newdat)
-    indicatorm<-matrix(NA, nrow = nstu, ncol = K)
+    indicatorm<-matrix(NA, nrow = n.stu, ncol = K1)
     i=0
     j=0
-    for(i in 3:(K+2)){
-      for(j in 1:nstu){
+    for(i in 3:(K1+2)){
+      for(j in 1:n.stu){
         if(dat1[j,i]==1) indicatorm[j,(i-2)]=0
         else indicatorm[j,(i-2)]=1
       }
@@ -123,18 +123,19 @@ nmadt.hierarchical.MNAR=function(nstu, K, data, testname, directory=NULL,
     return(indicatorm)
   }
   M <- indicator(K,nstu,data)
-  monitor<-c('pi','Se','Sp','post.Se','post.Sp','mu','Se.stud','Sp.stud','alpha','beta','eta','prev','ppv','npv','LRpos','LRneg')
+  monitor<-c('pi','post.Se','post.Sp','mu','Se.stud','Sp.stud','prev','ppv','npv','LRpos','LRneg','Cov','gamma0')
   data.jags <- list('n' = n, 'delta'=delta,'N' = N,'y'=y,'K'=K,'R'=R,'df'=df,'nstu'=nstu,'sid'=sid,'mu_alpha'=mu_alpha,'mu_beta'=mu_beta,'mu_eta'=mu_eta,'mu_gamma'=mu_gamma,
                     'preci_alpha'=preci_alpha,'preci_beta'=preci_beta,'preci_eta'=preci_eta,'preci_gamma'=preci_gamma, 'gamma1'=gamma1, 'gamma2'=gamma0, 'M'=M)
-  rng.seeds <- sample(1e+06, n.chains)
+  #rng.seeds <- sample(1e+06, n.chains)
   init<-list()
+  mu.inits<-c(mu_eta,rep(c(mu_alpha,mu_beta),K))
   for(i in 1:n.chains){
-    init[[i]]<-list(beta=rep((mu_beta),K),alpha=rep(mu_alpha,K),eta=mu_eta,.RNG.name = "base::Wichmann-Hill",
-                    .RNG.seed = rng.seeds[i])
+    init[[i]]<-list(mu=mu.inits,.RNG.name = "base::Wichmann-Hill",
+                    .RNG.seed = i)
   }
   message("Start running MCMC...\n")
   model<-system.file("JAGSmodels", "model_h_MNAR.txt", package="NMADiagT")
-  jags.m <-jags.model(model, data = data.jags,inits=init, n.chains = n.chains, n.adapt = n.adapt)
+  jags.m <-jags.model(model, data = data.jags,n.chains = n.chains, n.adapt = n.adapt)
   update(jags.m, n.iter = n.burnin)
   jags.out <- coda.samples(model = jags.m, variable.names = monitor,
                            n.iter = n.iter, thin = n.thin)

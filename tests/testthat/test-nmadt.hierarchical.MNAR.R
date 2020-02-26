@@ -26,5 +26,5 @@ test_that("nmadt.hierarchical.MNAR is working and the results are reproducible",
   rownames(Se.quan) <- testname
   Se <- list(Mean_SD = noquote(Se.stat), Median_CI = noquote(Se.quan))
 
-  expect_equal(as.numeric(unlist(kang.out.MNAR$Se)),as.numeric(unlist(Se)) + 0.06)
+  expect_equal(as.numeric(unlist(kang.out.MNAR$Se)),as.numeric(unlist(Se)))
 })

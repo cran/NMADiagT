@@ -8,8 +8,8 @@ nmadt.hierarchical.MNAR(nstu, K, data, testname, directory = NULL,
   diag = 5, off_diag = 0.05, digits = 4, mu_alpha = 0,
   mu_beta = 0, mu_eta = -0, preci_alpha = 0.1, preci_beta = 0.1,
   preci_eta = 0.1, gamma1, gamma0, mu_gamma = 0, preci_gamma = 1,
-  n.adapt = 5000, n.iter = 50000, n.burnin = floor(n.iter/2),
-  n.chains = 3, n.thin = max(1, floor((n.iter - n.burnin)/1e+05)),
+  n.burnin = floor(n.iter/2), n.thin = max(1, floor((n.iter -
+  n.burnin)/1e+05)), n.adapt = 5000, n.iter = 50000, n.chains = 3,
   conv.diag = FALSE, trace = NULL, dic = FALSE,
   mcmc.samples = FALSE)
 }
@@ -50,16 +50,16 @@ nmadt.hierarchical.MNAR(nstu, K, data, testname, directory = NULL,
 
 \item{preci_gamma}{a number specifying precision of intercept in the MNAR model. The default is 1.}
 
+\item{n.burnin}{a positive integer indicating the number of burn-in iterations at the beginning of each chain without saving any of the posterior samples. The default is \code{floor(n.iter/2)}.}
+
+\item{n.thin}{the thinning rate for MCMC chains, which is used to save memory and computation time when \code{n.iter} is large.
+For example, the algorithm saves only one sample in every nth iteration, where n is given by \code{n.thin}.}
+
 \item{n.adapt}{a positive integer indicating the number of iterations for adaptation. The default is 5,000.}
 
 \item{n.iter}{a postive integer indicating the number of iterations in each MCMC chain. The default is 50,000.}
 
-\item{n.burnin}{a positive integer indicating the number of burn-in iterations at the beginning of each chain without saving any of the posterior samples. The default is \code{floor(n.iter/2)}.}
-
 \item{n.chains}{a postive interger indicating the number of MCMC chains. The default is 3.}
-
-\item{n.thin}{the thinning rate for MCMC chains, which is used to save memory and computation time when \code{n.iter} is large.
-For example, the algorithm saves only one sample in every nth iteration, where n is given by \code{n.thin}.}
 
 \item{conv.diag}{a logical value specifying whether to compute potential scale reduction factors proposed for convergence diagnostics. The default is \code{FALSE}.}
 
